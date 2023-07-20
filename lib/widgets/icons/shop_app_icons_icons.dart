@@ -9,7 +9,7 @@
 ///   fonts:
 ///    - family:  ShopAppIcons
 ///      fonts:
-///       - asset: fonts/ShopAppIcons.ttf
+///       - asset: assets/fonts/ShopAppIcons.ttf
 ///
 /// 
 ///

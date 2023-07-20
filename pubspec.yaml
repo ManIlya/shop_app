@@ -41,6 +41,7 @@ dependencies:
   json_annotation: ^4.8.1
   auto_route: ^7.7.1
   elementary: ^2.0.0
+  dio: ^5.3.0
 
 dev_dependencies:
   flutter_test:
@@ -85,6 +86,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: ShopAppIcons
+      fonts:
+        - asset: assets/fonts/ShopAppIcons.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
