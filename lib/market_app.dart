@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:shop/utils/navigator/app_router.dart';
 import 'package:shop/widgets/home_page.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final _appRouter = AppRouter();
 
   // This widget is the root of your application.
   @override
@@ -12,14 +15,28 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
+    return CupertinoApp.router(
+      routerConfig: _appRouter.config(),
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.black, primary: Colors.black),
-        useMaterial3: true,
+      theme: CupertinoThemeData(
+        primaryColor: CupertinoDynamicColor.withBrightness(
+          color: Color(0xFF1F1F1F),
+          darkColor: Color(0xFFE0E0E0),
+        ),
+        textTheme: CupertinoTextThemeData(
+            textStyle: TextStyle(
+              color: CupertinoDynamicColor.withBrightness(
+                color: CupertinoColors.black,
+                darkColor: CupertinoColors.white,
+              ),
+              fontFamily: "Montserrat",
+              fontWeight: FontWeight.w400,
+            ),
+            actionTextStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+            )),
       ),
-      home: const HomePage(),
+      //home: HomePage(),
     );
   }
 }

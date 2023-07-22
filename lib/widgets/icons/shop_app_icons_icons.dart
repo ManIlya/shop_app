@@ -9,7 +9,7 @@
 ///   fonts:
 ///    - family:  ShopAppIcons
 ///      fonts:
-///       - asset: assets/fonts/ShopAppIcons.ttf
+///       - asset: fonts/ShopAppIcons.ttf
 ///
 /// 
 ///
@@ -26,4 +26,5 @@ class ShopAppIcons {
   static const IconData showcase = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData catalog = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData cart = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData heartFeel = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

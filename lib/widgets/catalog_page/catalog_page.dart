@@ -1,41 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/catalog/products/products_dto.dart';
 import 'package:shop/data/remote/client.dart';
 import 'package:shop/widgets/catalog_page/widget/catalog_card.dart';
-
+@RoutePage()
 class CatalogPage extends StatelessWidget {
   const CatalogPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: EdgeInsets.all(16),
-            sliver: SliverGrid(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return CatalogCardWidget(
-                  product: Product(
-                    badges: [],
-                    brand: 'Бренд',
-                  ),
-                );
-              }, childCount: 20),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                //crossAxisCount: 2,
-                crossAxisSpacing: 30,
-                mainAxisSpacing: 16,
-                childAspectRatio: 164 / 250,
-                maxCrossAxisExtent: 164,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+    return CatalogScreen((context) => CatalogScreenWM(CatalogScreenModel()));
   }
 }
 
@@ -106,7 +82,7 @@ class CatalogScreen extends ElementaryWidget<ICatalogScreenWM> {
               loadingBuilder: (_, __) {
                 return const SliverFillRemaining(
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CupertinoActivityIndicator(),
                   ),
                 );
               },

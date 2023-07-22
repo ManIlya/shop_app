@@ -4,5 +4,5 @@ import 'package:shop/data/remote/client.dart';
 import 'package:shop/market_app.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }

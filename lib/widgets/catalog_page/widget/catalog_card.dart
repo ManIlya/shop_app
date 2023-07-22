@@ -1,6 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/data/dto/catalog/products/products_dto.dart';
+import 'package:shop/utils/converter.dart';
+import 'package:shop/utils/navigator/app_router.dart';
+import 'package:shop/widgets/catalog_product_card/catalog_product_card.dart';
+import 'package:shop/widgets/catalog_product_card/product_card.dart';
 import 'package:shop/widgets/icons/shop_app_icons_icons.dart';
 
 class CatalogCardWidget extends StatelessWidget {
@@ -10,7 +15,6 @@ class CatalogCardWidget extends StatelessWidget {
   });
 
   Product product;
-
   final double _width = 164;
   final double _height = 250;
 
@@ -27,19 +31,20 @@ class CatalogCardWidget extends StatelessWidget {
               aspectRatio: 1,
               child: Stack(
                 children: [
-                  Image.network(
-                    'https://wp-s.ru/wallpapers/10/9/463314880930454/krasivyj-zakat-lesnoe-ozero-gory.jpg',
-                    width: _width,
-                    height: _width,
-                    fit: BoxFit.cover,
+                  Hero(
+                    tag: product.picture??'',
+                    child: Image.network(
+                      product.picture ?? '',
+                      width: _width,
+                      height: _width,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: InkWell(
-                      child: IconButton(
-                        icon: const Icon(ShopAppIcons.heart),
-                        onPressed: () {},
-                      ),
+                    child: CupertinoButton(
+                      child: const Icon(ShopAppIcons.heart),
+                      onPressed: () {},
                     ),
                   )
                 ],
@@ -60,13 +65,10 @@ class CatalogCardWidget extends StatelessWidget {
                 SizedBox(
                   width: _width,
                   height: 38,
-                  child: const Text(
-                    "Название товара Название товара...",
-                    style: TextStyle(
-                      fontFamily: "Montserrat",
+                  child: Text(
+                    product.name ?? 'None',
+                    style: const TextStyle(
                       fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xff1f1f1f),
                       height: 15.84 / 12,
                     ),
                     textAlign: TextAlign.left,
@@ -77,25 +79,39 @@ class CatalogCardWidget extends StatelessWidget {
                   height: 48,
                   child: CupertinoListTile(
                     padding: EdgeInsets.zero,
-                    title: const Text(
-                      "1 990 ₽",
+                    title: Text(
+                      "${PriceConvert.convertPrice(product.price ?? '')} ₽",
                       textAlign: TextAlign.start,
                     ),
-                    subtitle: const Text(
-                      "2 990 ₽",
-                      style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
+                    subtitle: product.oldPrice != null
+                        ? Text(
+                            "${PriceConvert.convertPrice(product.oldPrice!)} ₽",
+                            style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                            textAlign: TextAlign.start,
+                          )
+                        : null,
                     trailing: SizedBox(
                       width: 48,
                       height: 48,
-                      child: IconButton.filled(
-                        icon: const Icon(
-                          CupertinoIcons.add,
+                      child: CupertinoButton.filled(
+                        padding: EdgeInsets.zero,
+                        borderRadius: BorderRadius.circular(24),
+                        child: SizedBox(
+                          width: 48,
+                          height: 48,
+                          child: Icon(ShopAppIcons.cart),
                         ),
                         onPressed: () {
+                          context.router.navigate(CatalogProductCardRoute(id: product.id!, preview: product,));
+                          /*Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) =>ProductCardWidget(product, product.id!),
+                            ),
+                          );*/
+
                           //todo реализовать нажатие лайка
                         },
                       ),

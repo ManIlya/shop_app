@@ -23,7 +23,7 @@ mixin _$Category {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String? get picture => throw _privateConstructorUsedError;
-  @JsonValue("parent_id")
+  @JsonKey(name: "parent_id")
   int? get parentId => throw _privateConstructorUsedError;
   List<Category>? get subcategories => throw _privateConstructorUsedError;
 
@@ -42,7 +42,7 @@ abstract class $CategoryCopyWith<$Res> {
       {int id,
       String name,
       String? picture,
-      @JsonValue("parent_id") int? parentId,
+      @JsonKey(name: "parent_id") int? parentId,
       List<Category>? subcategories});
 }
 
@@ -101,7 +101,7 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       {int id,
       String name,
       String? picture,
-      @JsonValue("parent_id") int? parentId,
+      @JsonKey(name: "parent_id") int? parentId,
       List<Category>? subcategories});
 }
 
@@ -154,7 +154,7 @@ class _$_Category implements _Category {
       {required this.id,
       required this.name,
       this.picture,
-      @JsonValue("parent_id") this.parentId,
+      @JsonKey(name: "parent_id") this.parentId,
       final List<Category>? subcategories})
       : _subcategories = subcategories;
 
@@ -168,7 +168,7 @@ class _$_Category implements _Category {
   @override
   final String? picture;
   @override
-  @JsonValue("parent_id")
+  @JsonKey(name: "parent_id")
   final int? parentId;
   final List<Category>? _subcategories;
   @override
@@ -223,7 +223,7 @@ abstract class _Category implements Category {
       {required final int id,
       required final String name,
       final String? picture,
-      @JsonValue("parent_id") final int? parentId,
+      @JsonKey(name: "parent_id") final int? parentId,
       final List<Category>? subcategories}) = _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
@@ -235,7 +235,7 @@ abstract class _Category implements Category {
   @override
   String? get picture;
   @override
-  @JsonValue("parent_id")
+  @JsonKey(name: "parent_id")
   int? get parentId;
   @override
   List<Category>? get subcategories;

@@ -2,7 +2,6 @@ import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 
 import 'package:shop/data/dto/catalog/categories/categories_dto.dart';
-import 'package:shop/data/dto/catalog/product/product_card_dto.dart';
 import 'package:shop/data/dto/catalog/products/products_dto.dart';
 
 part 'client.g.dart';
