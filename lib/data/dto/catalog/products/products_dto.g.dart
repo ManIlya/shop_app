@@ -59,84 +59,40 @@ Map<String, dynamic> _$$_ProductsDTOToJson(_$_ProductsDTO instance) =>
     };
 
 _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(
-      id: json['id'] as int?,
-      price: json['price'] as String?,
-      discount: json['discount'] as num?,
-      oldPrice: json['old_price'] as String?,
-      name: json['name'] as String?,
-      article: json['article'] as String?,
-      picture: json['picture'] as String?,
+      id: json['id'] as int,
+      price: Decimal.fromJson(json['price'] as String),
       badges: (json['badges'] as List<dynamic>)
           .map((e) => Badge.fromJson(e as Map<String, dynamic>))
           .toList(),
-      rating: json['rating'] as num?,
+      name: json['name'] as String,
+      brand: json['brand'] as String?,
+      picture: json['picture'] as String?,
+      article: json['article'] as String?,
+      description: json['description'] as String?,
+      available: json['available'] as bool?,
+      rating: (json['rating'] as num?)?.toDouble(),
+      oldPrice: json['old_price'] == null
+          ? null
+          : Decimal.fromJson(json['old_price'] as String),
       reviewsCount: json['reviews_count'] as int?,
-      brand: json['brand'] as String,
+      cityFias: json['city_fias'] as String?,
     );
 
 Map<String, dynamic> _$$_ProductToJson(_$_Product instance) =>
     <String, dynamic>{
       'id': instance.id,
       'price': instance.price,
-      'discount': instance.discount,
-      'old_price': instance.oldPrice,
-      'name': instance.name,
-      'article': instance.article,
-      'picture': instance.picture,
       'badges': instance.badges,
-      'rating': instance.rating,
-      'reviews_count': instance.reviewsCount,
-      'brand': instance.brand,
-    };
-
-_$_ProductCardDTO _$$_ProductCardDTOFromJson(Map<String, dynamic> json) =>
-    _$_ProductCardDTO(
-      id: json['id'] as int?,
-      parameters: (json['parameters'] as List<dynamic>?)
-          ?.map((e) => ProductProperty.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      picture: json['picture'] as String?,
-      categories: (json['categories'] as List<dynamic>?)
-          ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      badges: (json['badges'] as List<dynamic>)
-          .map((e) => Badge.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      price: json['price'] as String,
-      oldPrice: json['old_price'] as String?,
-      brand: json['brand'] as String,
-      article: json['article'] as String?,
-      name: json['name'] as String?,
-      description: json['description'] as String?,
-      available: json['available'] as bool?,
-      discount: json['discount'] as num?,
-      sort: json['sort'] as int?,
-      rating: json['rating'] as num?,
-      reviewsCount: json['reviews_count'] as int?,
-      needBuyToWholesale: json['need_buy_to_wholesale'] as int?,
-      wholesaleDiscount: json['wholesale_discount'] as int?,
-    );
-
-Map<String, dynamic> _$$_ProductCardDTOToJson(_$_ProductCardDTO instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'parameters': instance.parameters,
-      'picture': instance.picture,
-      'categories': instance.categories,
-      'badges': instance.badges,
-      'price': instance.price,
-      'old_price': instance.oldPrice,
-      'brand': instance.brand,
-      'article': instance.article,
       'name': instance.name,
+      'brand': instance.brand,
+      'picture': instance.picture,
+      'article': instance.article,
       'description': instance.description,
       'available': instance.available,
-      'discount': instance.discount,
-      'sort': instance.sort,
       'rating': instance.rating,
+      'old_price': instance.oldPrice,
       'reviews_count': instance.reviewsCount,
-      'need_buy_to_wholesale': instance.needBuyToWholesale,
-      'wholesale_discount': instance.wholesaleDiscount,
+      'city_fias': instance.cityFias,
     };
 
 _$_Badge _$$_BadgeFromJson(Map<String, dynamic> json) => _$_Badge(

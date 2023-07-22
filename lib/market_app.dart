@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:shop/utils/navigator/app_router.dart';
-import 'package:shop/widgets/home_page.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
     return CupertinoApp.router(
       routerConfig: _appRouter.config(),
       title: 'Flutter Demo',
-      theme: CupertinoThemeData(
+      theme: const CupertinoThemeData(
         primaryColor: CupertinoDynamicColor.withBrightness(
           color: Color(0xFF1F1F1F),
           darkColor: Color(0xFFE0E0E0),

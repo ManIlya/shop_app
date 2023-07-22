@@ -1,5 +1,5 @@
-class PriceConvert{
-  static String convertPrice(String oldPrice){
-    return oldPrice.split('.')[0];
+class PriceConvert {
+  static double convertPrice(double number) {
+    return double.parse(number.toStringAsFixed(1));
   }
 }

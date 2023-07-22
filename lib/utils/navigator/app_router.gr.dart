@@ -16,9 +16,25 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     CatalogRoute.name: (routeData) {
+      final args = routeData.argsAs<CatalogRouteArgs>(
+          orElse: () => const CatalogRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CatalogPage(),
+        child: CatalogPage(
+          request: args.request,
+          key: args.key,
+        ),
+      );
+    },
+    ProductRoute.name: (routeData) {
+      final args = routeData.argsAs<ProductRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ProductPage(
+          preview: args.preview,
+          id: args.id,
+          key: args.key,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
@@ -33,21 +49,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CatalogTabPage(),
       );
     },
-    CardTab.name: (routeData) {
+    CartTab.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const CardTabPage(),
       );
     },
-    CatalogProductCardRoute.name: (routeData) {
-      final args = routeData.argsAs<CatalogProductCardRouteArgs>();
+    CartRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: CatalogProductCardScreen(
-          preview: args.preview,
-          id: args.id,
-          key: args.key,
-        ),
+        child: const CartPage(),
       );
     },
   };
@@ -55,16 +66,83 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [CatalogPage]
-class CatalogRoute extends PageRouteInfo<void> {
-  const CatalogRoute({List<PageRouteInfo>? children})
-      : super(
+class CatalogRoute extends PageRouteInfo<CatalogRouteArgs> {
+  CatalogRoute({
+    ProductsSerializerRequest? request,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           CatalogRoute.name,
+          args: CatalogRouteArgs(
+            request: request,
+            key: key,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'CatalogRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<CatalogRouteArgs> page =
+      PageInfo<CatalogRouteArgs>(name);
+}
+
+class CatalogRouteArgs {
+  const CatalogRouteArgs({
+    this.request,
+    this.key,
+  });
+
+  final ProductsSerializerRequest? request;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CatalogRouteArgs{request: $request, key: $key}';
+  }
+}
+
+/// generated route for
+/// [ProductPage]
+class ProductRoute extends PageRouteInfo<ProductRouteArgs> {
+  ProductRoute({
+    Product? preview,
+    required int id,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ProductRoute.name,
+          args: ProductRouteArgs(
+            preview: preview,
+            id: id,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ProductRoute';
+
+  static const PageInfo<ProductRouteArgs> page =
+      PageInfo<ProductRouteArgs>(name);
+}
+
+class ProductRouteArgs {
+  const ProductRouteArgs({
+    this.preview,
+    required this.id,
+    this.key,
+  });
+
+  final Product? preview;
+
+  final int id;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ProductRouteArgs{preview: $preview, id: $id, key: $key}';
+  }
 }
 
 /// generated route for
@@ -97,58 +175,28 @@ class CatalogTab extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CardTabPage]
-class CardTab extends PageRouteInfo<void> {
-  const CardTab({List<PageRouteInfo>? children})
+class CartTab extends PageRouteInfo<void> {
+  const CartTab({List<PageRouteInfo>? children})
       : super(
-          CardTab.name,
+          CartTab.name,
           initialChildren: children,
         );
 
-  static const String name = 'CardTab';
+  static const String name = 'CartTab';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
-/// [CatalogProductCardScreen]
-class CatalogProductCardRoute
-    extends PageRouteInfo<CatalogProductCardRouteArgs> {
-  CatalogProductCardRoute({
-    Product? preview,
-    required int id,
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          CatalogProductCardRoute.name,
-          args: CatalogProductCardRouteArgs(
-            preview: preview,
-            id: id,
-            key: key,
-          ),
+/// [CartPage]
+class CartRoute extends PageRouteInfo<void> {
+  const CartRoute({List<PageRouteInfo>? children})
+      : super(
+          CartRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'CatalogProductCardRoute';
+  static const String name = 'CartRoute';
 
-  static const PageInfo<CatalogProductCardRouteArgs> page =
-      PageInfo<CatalogProductCardRouteArgs>(name);
-}
-
-class CatalogProductCardRouteArgs {
-  const CatalogProductCardRouteArgs({
-    this.preview,
-    required this.id,
-    this.key,
-  });
-
-  final Product? preview;
-
-  final int id;
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CatalogProductCardRouteArgs{preview: $preview, id: $id, key: $key}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

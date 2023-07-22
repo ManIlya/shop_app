@@ -1,69 +1,12 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/catalog/products/products_dto.dart';
-import 'package:shop/data/remote/client.dart';
-import 'package:shop/widgets/catalog_page/widget/catalog_card.dart';
-@RoutePage()
-class CatalogPage extends StatelessWidget {
-  const CatalogPage({super.key});
+import 'package:shop/widget_models/catalog/catalog_page/catalog_widget_model.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return CatalogScreen((context) => CatalogScreenWM(CatalogScreenModel()));
-  }
-}
+import 'product_card/catalog_screen_product_card.dart';
 
-class CatalogScreenModel extends ElementaryModel {
-  Future<List<Product>> loadProducts() async {
-    final client = RestClient(Dio());
-    final res = await client.catalogProductsCreate();
-    return res.results;
-  }
-}
-
-class CatalogScreenWM extends WidgetModel<CatalogScreen, CatalogScreenModel>
-    implements ICatalogScreenWM {
-  CatalogScreenWM(super.model);
-
-  final _productListState = EntityStateNotifier<List<Product>>();
-
-  @override
-  ListenableState<EntityState<List<Product>>> get productListState =>
-      _productListState;
-
-  Future<void> _loadProductList() async {
-    final previousData = _productListState.value?.data;
-    _productListState.loading(previousData);
-
-    try {
-      final res = await model.loadProducts();
-      _productListState.content(res);
-    } on Exception catch (e) {
-      _productListState.error(e, previousData);
-    }
-  }
-
-  @override
-  void initWidgetModel() {
-    super.initWidgetModel();
-    _loadProductList();
-  }
-
-  @override
-  void dispose() {
-    _productListState.dispose();
-    super.dispose();
-  }
-}
-
-abstract class ICatalogScreenWM extends IWidgetModel {
-  ListenableState<EntityState<List<Product>>> get productListState;
-}
-
-class CatalogScreen extends ElementaryWidget<ICatalogScreenWM> {
-  const CatalogScreen(super.wmFactory, {super.key});
+class CatalogWidget extends ElementaryWidget<ICatalogScreenWM> {
+  const CatalogWidget(super.wmFactory, {super.key});
 
   static const sliverPadding = 16.0;
   static const crossAxisSpacing = 30.0;
@@ -104,7 +47,7 @@ class CatalogScreen extends ElementaryWidget<ICatalogScreenWM> {
                     maxCrossAxisExtent: height,
                   ),
                   itemBuilder: (context, index) {
-                    return CatalogCardWidget(
+                    return CatalogProductCardWidget(
                       product: products[index],
                     );
                   },

@@ -1,20 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:shop/data/dto/catalog/products/products_dto.dart';
-import 'package:shop/utils/converter.dart';
+import 'package:shop/utils/icons/shop_app_icons_icons.dart';
 import 'package:shop/utils/navigator/app_router.dart';
-import 'package:shop/widgets/catalog_product_card/catalog_product_card.dart';
-import 'package:shop/widgets/catalog_product_card/product_card.dart';
-import 'package:shop/widgets/icons/shop_app_icons_icons.dart';
 
-class CatalogCardWidget extends StatelessWidget {
-  CatalogCardWidget({
+class CatalogProductCardWidget extends StatelessWidget {
+  const CatalogProductCardWidget({
     required this.product,
     super.key,
   });
 
-  Product product;
+  final Product product;
   final double _width = 164;
   final double _height = 250;
 
@@ -32,7 +28,7 @@ class CatalogCardWidget extends StatelessWidget {
               child: Stack(
                 children: [
                   Hero(
-                    tag: product.picture??'',
+                    tag: product.picture ?? '',
                     child: Image.network(
                       product.picture ?? '',
                       width: _width,
@@ -66,7 +62,7 @@ class CatalogCardWidget extends StatelessWidget {
                   width: _width,
                   height: 38,
                   child: Text(
-                    product.name ?? 'None',
+                    product.name,
                     style: const TextStyle(
                       fontSize: 12,
                       height: 15.84 / 12,
@@ -80,12 +76,12 @@ class CatalogCardWidget extends StatelessWidget {
                   child: CupertinoListTile(
                     padding: EdgeInsets.zero,
                     title: Text(
-                      "${PriceConvert.convertPrice(product.price ?? '')} ₽",
+                      "${product.price} ₽",
                       textAlign: TextAlign.start,
                     ),
                     subtitle: product.oldPrice != null
                         ? Text(
-                            "${PriceConvert.convertPrice(product.oldPrice!)} ₽",
+                            "${product.oldPrice!} ₽",
                             style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
                             ),
@@ -98,20 +94,16 @@ class CatalogCardWidget extends StatelessWidget {
                       child: CupertinoButton.filled(
                         padding: EdgeInsets.zero,
                         borderRadius: BorderRadius.circular(24),
-                        child: SizedBox(
+                        child: const SizedBox(
                           width: 48,
                           height: 48,
                           child: Icon(ShopAppIcons.cart),
                         ),
                         onPressed: () {
-                          context.router.navigate(CatalogProductCardRoute(id: product.id!, preview: product,));
-                          /*Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) =>ProductCardWidget(product, product.id!),
-                            ),
-                          );*/
-
+                          context.router.navigate(ProductRoute(
+                            id: product.id,
+                            preview: product,
+                          ));
                           //todo реализовать нажатие лайка
                         },
                       ),

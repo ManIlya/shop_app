@@ -1,61 +1,51 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shop/utils/icons/shop_app_icons_icons.dart';
 import 'package:shop/utils/navigator/app_router.dart';
-import 'package:shop/widgets/catalog_page/catalog_page.dart';
-import 'package:shop/widgets/catalog_page/widget/catalog_card.dart';
-import 'package:shop/widgets/catalog_product_card/catalog_product_card.dart';
-import 'package:shop/widgets/catalog_product_card/product_card.dart';
-import 'package:shop/widgets/icons/shop_app_icons_icons.dart';
 
 @RoutePage()
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _index = 0;
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: [
+      routes: const [
         CatalogTab(),
-        CardTab(),
+        CartTab(),
       ],
       lazyLoad: false,
       bottomNavigationBuilder: (context, tabsRouter) {
-        return CupertinoTabBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(ShopAppIcons.showcase),
-              label: 'Витрина',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(ShopAppIcons.catalog),
-              label: 'Каталог',
-            ),
-            /*BottomNavigationBarItem(
-              icon: Icon(ShopAppIcons.cart),
-              label: 'Корзина',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(ShopAppIcons.heart),
-              label: 'Избранное',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(ShopAppIcons.profile),
-              label: 'Профиль',
-            ),*/
-          ],
-          currentIndex: tabsRouter.activeIndex,
-          onTap: tabsRouter.setActiveIndex,
-        );
-          },
-        );
+        return Container(
+          decoration: BoxDecoration(
+            color: CupertinoColors.white, // Цвет
+            boxShadow: [
+              BoxShadow(
+                color: CupertinoColors.systemGrey.withOpacity(0.5), // Цвет тени и её прозрачность
+                spreadRadius: 2, // Распространение тени
+                blurRadius: 4, // Радиус размытия тени
+                offset: Offset(0, 0), // Смещение тени по горизонтали и вертикали
+              ),
+            ],),
+          child: CupertinoTabBar(
 
+            currentIndex: tabsRouter.activeIndex,
+            onTap: tabsRouter.setActiveIndex,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(ShopAppIcons.catalog),
+                label: 'Каталог',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(ShopAppIcons.cart),
+                label: 'Корзина',
+              ),
+            ],
+          ),
+        );
+      },
+    );
+/*
 
     return CupertinoTabScaffold(
       tabBuilder: (context, index) {
@@ -108,6 +98,6 @@ class _HomePageState extends State<HomePage> {
           });
         },
       ),
-    );
+    );*/
   }
 }

@@ -4,25 +4,27 @@ import 'package:dio/dio.dart';
 import 'package:shop/data/dto/catalog/categories/categories_dto.dart';
 import 'package:shop/data/dto/catalog/products/products_dto.dart';
 
-part 'client.g.dart';
+import '../constants/catalog_url.dart';
 
-@RestApi(baseUrl: "https://farm.fbtw.ru")
-abstract class RestClient {
-  factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
+part 'catalog_service.g.dart';
 
-  @POST("/catalog/products/")
+@RestApi(baseUrl: CatalogUrl.baseUrl)
+abstract class CatalogService {
+  factory CatalogService(Dio dio, {String baseUrl}) = _CatalogService;
+
+  @POST(CatalogUrl.products)
   Future<ProductsDTO> catalogProductsCreate({
     @Body() ProductsSerializerRequest? productsSerializerRequest,
   });
 
-  @GET("/catalog/categories/")
+  @GET(CatalogUrl.categories)
   Future<List<Category>> catalogCategoriesList({
     @Query("parent_id") int? parentId,
     @Query("only_leaf") bool onlyLeaf = false,
   });
 
-  @GET("/catalog/product/")
-  Future<ProductCardDTO> catalogProductRead({
+  @GET(CatalogUrl.product)
+  Future<Product> catalogProductRead({
     @Query("product_id") required int productId,
     @Query("city_fias") String? cityFias,
   });
