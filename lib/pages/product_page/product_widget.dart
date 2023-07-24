@@ -69,7 +69,7 @@ class ProductWidget extends ElementaryWidget<IProductWM> {
           ), //скидка и кнопка лайка
           Center(
             child: Hero(
-              tag: newProduct.picture ?? '',
+              tag: newProduct,
               child: Image.network(
                 newProduct.picture ?? '',
                 height: 273,

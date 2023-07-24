@@ -24,8 +24,7 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
           if (product != null) {
             return Column(
               children: [
-                Expanded(
-                  flex: _width.ceil(),
+                Expanded( // Добавлен Expanded
                   child: SizedBox(
                     width: _width,
                     height: _width,
@@ -34,7 +33,7 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                       child: Stack(
                         children: [
                           Hero(
-                            tag: product.picture ?? '',
+                            tag: product,
                             child: Image.network(
                               product.picture ?? '',
                               width: _width,
@@ -51,12 +50,12 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                                 return CupertinoButton(
                                   child: data
                                       ? const Icon(
-                                          ShopAppIcons.heartFeel,
-                                          color: CupertinoColors.systemRed,
-                                        )
+                                    ShopAppIcons.heartFeel,
+                                    color: CupertinoColors.systemRed,
+                                  )
                                       : const Icon(
-                                          ShopAppIcons.heart,
-                                        ),
+                                    ShopAppIcons.heart,
+                                  ),
                                   onPressed: () {
                                     //todo добавление в избранное
                                     wm.toggleFavorite();
@@ -70,8 +69,7 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: (_height - _width).ceil(),
+                Expanded( // Добавлен Expanded
                   child: Container(
                     width: _width,
                     height: _height - _width,
@@ -103,12 +101,12 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                             ),
                             subtitle: product.oldPrice != null
                                 ? Text(
-                                    "${product.oldPrice!} ₽",
-                                    style: const TextStyle(
-                                      decoration: TextDecoration.lineThrough,
-                                    ),
-                                    textAlign: TextAlign.start,
-                                  )
+                              "${product.oldPrice!} ₽",
+                              style: const TextStyle(
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                              textAlign: TextAlign.start,
+                            )
                                 : null,
                             trailing: EntityStateNotifierBuilder(
                               listenableEntityState: wm.cartState,
