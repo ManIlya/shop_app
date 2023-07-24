@@ -60,36 +60,34 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     required this.cartService,
     required this.catalogService,
   }) : super(
-    OrderState.init(
-      products: products,
-    ),
-  ) {
+          OrderState.init(
+            products: products,
+          ),
+        ) {
     on<OrderEvent>(
-            (event, emit) async {
-          switch (event) {
-            case LoadDeliveryOrderEvent():
-              await _loadDeliveries(event, emit);
-              break;
-            case SelectDeliveryOrderEvent():
-              break;
-            case SelectPaymentOrderEvent():
-              break;
-            case OrderCreateOrderEvent():
-              break;
-          }
-        },
-        transformer: sequential(),
+      (event, emit) async {
+        switch (event) {
+          case LoadDeliveryOrderEvent():
+            await _loadDeliveries(event, emit);
+            break;
+          case SelectDeliveryOrderEvent():
+            break;
+          case SelectPaymentOrderEvent():
+            break;
+          case OrderCreateOrderEvent():
+            break;
+        }
+      },
+      transformer: sequential(),
     );
   }
 
   Future<void> _loadDeliveries(
-      LoadDeliveryOrderEvent event,
-      Emitter<OrderState> emit,
-      ) async {
+    LoadDeliveryOrderEvent event,
+    Emitter<OrderState> emit,
+  ) async {
     final deliveries = await catalogService.getDeliveries(
-      request: DeliveriesRequest(
-        products: state.products,
-      ),
+      request: DeliveriesRequest(products: state.products),
     );
     emit(
       DeliveryOrderState(

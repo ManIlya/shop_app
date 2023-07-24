@@ -1,9 +1,11 @@
+import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/cart_cart.dart';
 import 'package:shop/data/dto/products_dto.dart';
+import 'package:shop/data/repository/cart_use_case.dart';
 import 'package:shop/pages/catalog_product_page/catalog_card_model.dart';
 import 'package:shop/utils/app_components.dart';
 import 'package:shop/utils/navigator/app_router.dart';
@@ -19,13 +21,20 @@ class CatalogCardWM extends WidgetModel<CatalogCardWidget, CatalogCardModel>
 
   bool _isFavorite = false;
   bool _isCart = false;
+  final CartUseCase cartUseCase = AppComponents().cartUseCase;
+  StreamSubscription? sub;
 
   @override
   void initWidgetModel() {
     super.initWidgetModel();
     _productState.content(model.product);
     _favoriteState.content(_isFavorite);
-    _cartState.content(_isCart);
+    sub = cartUseCase.cart.stream.listen((event) {
+      _isCart = (event?.products
+              .any((element) => element.product.id == model.product.id) ??
+          false);
+      _cartState.content(_isCart);
+    });
   }
 
   @override
@@ -33,6 +42,7 @@ class CatalogCardWM extends WidgetModel<CatalogCardWidget, CatalogCardModel>
     _productState.dispose();
     _favoriteState.dispose();
     _cartState.dispose();
+    sub?.cancel();
     super.dispose();
   }
 
@@ -62,10 +72,10 @@ class CatalogCardWM extends WidgetModel<CatalogCardWidget, CatalogCardModel>
   @override
   void toggleCart() {
     AppComponents().cartUseCase.postCart(
-      request: CartUpdate(
-        productId: model.product.id,
-      ),
-    );
+          request: CartUpdate(
+            productId: model.product.id,
+          ),
+        );
   }
 
   @override

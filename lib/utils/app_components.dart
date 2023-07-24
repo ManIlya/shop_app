@@ -31,6 +31,7 @@ class AppComponents {
       ..baseUrl = 'https://farm.fbtw.ru/'
       ..connectTimeout = timeout
       ..receiveTimeout = timeout
+      ..headers['Content-Type'] = 'application/json'
       ..sendTimeout = timeout;
     //dio.interceptors.add(PrettyDioLogger());
 

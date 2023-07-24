@@ -1,9 +1,9 @@
-import 'dart:async';
+import 'package:rxdart/rxdart.dart';
 
 import 'package:shop/utils/life_cycle_component/lifecycle_component.dart';
 
 class ValueStreamWrapper<T> implements DisposeLifecycleComponent {
-  final StreamController<T> _controller = StreamController.broadcast();
+  final BehaviorSubject<T> _controller = BehaviorSubject<T>();
   T? _value;
 
   Stream<T> get stream => _controller.stream;

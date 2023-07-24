@@ -37,6 +37,17 @@ class OrderPage extends StatelessWidget {
                     child: BlocBuilder<OrderBloc, OrderState>(
                       builder: (context, state) {
                         // В зависимости от текущего состояния, отображаем различные виджеты
+                        return ListView(
+                          children: [
+                            Text('Данные получателя'),
+                            CupertinoTextField(),
+                            CupertinoTextField(),
+                            Text('Выбор адреса доставки'),
+                            CupertinoButton(child: Text('ВЫБРАТЬ АДРЕСС'), onPressed: null),
+                            Text('Способ оплаты'),
+                            
+                          ],
+                        );
                         if (state is InitOrderState) {
                           // Отображение начального состояния
                           return Center(
@@ -44,8 +55,20 @@ class OrderPage extends StatelessWidget {
                           );
                         } else if (state is DeliveryOrderState) {
                           // Отображение состояния с информацией о доставке
+                          final deliveries = state.deliveries;
                           return Center(
-                            child: Text('Delivery State'),
+                            child: ListView.builder(
+                              itemCount: deliveries.length,
+                              itemBuilder: (context, index){
+                                final delivery = deliveries[index];
+                                return CupertinoListTile(
+                                  title: Text(delivery.title),
+                                  leading: Image.network(delivery.icon),
+                                  subtitle: Text('Тип: ${delivery.type} Адресс: ${delivery.farmAddress}'),
+                                  
+                                );
+                            },
+                            ),
                           );
                         } else if (state is PaymentsOrderState) {
                           // Отображение состояния с информацией о платежах
