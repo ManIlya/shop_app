@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shop/data/dto/catalog/products/products_dto.dart';
-import 'package:shop/pages/cart/cart_page.dart';
-import 'package:shop/pages/catalog/catalog_page.dart';
-import 'package:shop/pages/catalog/product_page.dart';
+import 'package:shop/data/dto/products_dto.dart';
+import 'package:shop/pages/cart_page/cart_page.dart';
+import 'package:shop/pages/catalog_page/catalog_page.dart';
 import 'package:shop/pages/home_page.dart';
+import 'package:shop/pages/product_page/product_page.dart';
 
 part 'app_router.gr.dart';
 
