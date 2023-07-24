@@ -128,7 +128,7 @@ class CartPageWidget extends ElementaryWidget<ICartPageWidgetModel> {
                                 child: CupertinoButton.filled(
                                   minSize: double.infinity,
                                   padding: EdgeInsets.zero,
-                                  onPressed: () {},
+                                  onPressed: wm.openOrder,
                                   borderRadius: BorderRadius.zero,
                                   child: const Text('Оформить заказ'),
                                 ),

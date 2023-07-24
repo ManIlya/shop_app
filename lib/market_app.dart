@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return CupertinoApp.router(
+    return
+      CupertinoApp.router(
       routerConfig: _appRouter.config(),
       title: 'Flutter Demo',
       theme: const CupertinoThemeData(

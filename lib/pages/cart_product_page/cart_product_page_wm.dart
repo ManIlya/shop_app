@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shop/data/dto/cart_cart.dart';
 import 'package:shop/data/dto/request_calculated_cart.dart';
 import 'package:shop/data/repository/cart_use_case.dart';
-import 'package:shop/pages/product_page/product_page.dart';
 import 'package:shop/utils/app_components.dart';
 import 'package:shop/utils/navigator/app_router.dart';
 import 'cart_product_page_model.dart';

@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/request_calculated_cart.dart';
 import 'package:shop/data/repository/cart_use_case.dart';
 import 'package:shop/utils/app_components.dart';
+import 'package:shop/utils/navigator/app_router.dart';
 import 'cart_page_model.dart';
 import 'cart_page_widget.dart';
 
@@ -59,7 +61,11 @@ class CartPageWidgetModel extends WidgetModel<CartPageWidget, CartPageModel>
 
   @override
   void openOrder() {
-    // TODO: implement openOrder
+    final products = cartState.value?.data;
+    if(products!=null){
+      final productIds = products.products.map((e) => CartProductIds(productId: e.product.id.toString(), count: e.count)).toList();
+      context.router.navigate(OrderRoute(products: productIds));
+    }
   }
 
   Future<void> loadCart() async {

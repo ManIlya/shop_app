@@ -1,6 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:shop/data/dto/categories_dto.dart';
+import 'package:shop/data/dto/deliveries.dart';
 import 'package:shop/data/dto/products_dto.dart';
 
 
@@ -28,4 +29,17 @@ abstract class CatalogService {
     @Query("product_id") required int productId,
     @Query("city_fias") String? cityFias,
   });
+
+
+  @POST(CatalogUrl.payments)
+  Future<List<Payment>> getPayments({
+    @Body() required PaymentsRequest request,
+  });
+
+
+  @POST(CatalogUrl.deliveries)
+  Future<List<Delivery>> getDeliveries({
+    @Body() required DeliveriesRequest request,
+  });
+
 }
