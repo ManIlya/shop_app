@@ -11,4 +11,3 @@ class CartPage extends StatelessWidget {
     return const CartPageWidget();
   }
 }
-

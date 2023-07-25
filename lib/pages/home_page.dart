@@ -21,14 +21,16 @@ class HomePage extends StatelessWidget {
             color: CupertinoColors.white, // Цвет
             boxShadow: [
               BoxShadow(
-                color: CupertinoColors.systemGrey.withOpacity(0.5), // Цвет тени и её прозрачность
-                spreadRadius: 2, // Распространение тени
-                blurRadius: 4, // Радиус размытия тени
-                offset: Offset(0, 0), // Смещение тени по горизонтали и вертикали
+                color: CupertinoColors.systemGrey.withOpacity(0.5),
+                // Цвет тени и её прозрачность
+                spreadRadius: 2,
+                // Распространение тени
+                blurRadius: 4,
+                // Радиус размытия тени
               ),
-            ],),
+            ],
+          ),
           child: CupertinoTabBar(
-
             currentIndex: tabsRouter.activeIndex,
             onTap: tabsRouter.setActiveIndex,
             items: const [

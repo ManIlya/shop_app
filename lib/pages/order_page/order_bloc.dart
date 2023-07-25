@@ -60,12 +60,12 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     required this.cartService,
     required this.catalogService,
   }) : super(
-    OrderState.init(
-      products: products,
-    ),
-  ) {
+          OrderState.init(
+            products: products,
+          ),
+        ) {
     on<OrderEvent>(
-          (event, emit) async {
+      (event, emit) async {
         switch (event) {
           case LoadDeliveryOrderEvent():
             await _loadDeliveries(event, emit);
@@ -86,9 +86,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   Future<void> _loadDeliveries(
-      LoadDeliveryOrderEvent event,
-      Emitter<OrderState> emit,
-      ) async {
+    LoadDeliveryOrderEvent event,
+    Emitter<OrderState> emit,
+  ) async {
     final deliveries = await catalogService.getDeliveries(
       request: DeliveriesRequest(products: state.products),
     );
@@ -103,9 +103,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   Future<void> _selectDelivery(
-      SelectDeliveryOrderEvent event,
-      Emitter<OrderState> emit,
-      ) async {
+    SelectDeliveryOrderEvent event,
+    Emitter<OrderState> emit,
+  ) async {
     final payments = await catalogService.getPayments(
       request: PaymentsRequest(
         products: state.products,
@@ -124,9 +124,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   Future<void> _selectPayment(
-      SelectPaymentOrderEvent event,
-      Emitter<OrderState> emit,
-      ) async {
+    SelectPaymentOrderEvent event,
+    Emitter<OrderState> emit,
+  ) async {
     emit(
       PaymentsOrderState(
         products: state.products,
@@ -139,10 +139,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   Future<void> _createOrder(
-      OrderCreateOrderEvent event,
-      Emitter<OrderState> emit,
-      ) async {
-
+    OrderCreateOrderEvent event,
+    Emitter<OrderState> emit,
+  ) async {
     // Implement your logic to create the order here
   }
 }

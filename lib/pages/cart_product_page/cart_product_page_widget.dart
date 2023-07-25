@@ -1,6 +1,5 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:shop/utils/icons/shop_app_icons_icons.dart';
 import 'cart_product_page_wm.dart';
 
@@ -98,10 +97,11 @@ class CartProductPageWidget
                               CupertinoButton.filled(
                                 padding: EdgeInsets.zero,
                                 borderRadius: BorderRadius.zero,
+
+                                onPressed:
+                                    product.count <= 1 ? null : wm.tabMinus,
                                 //color: CupertinoColors.inactiveGray,
                                 child: const Icon(CupertinoIcons.minus),
-
-                                onPressed: product.count <= 1 ? null : wm.tabMinus,
                               ),
                               SizedBox(
                                   width: 44,
@@ -131,12 +131,12 @@ class CartProductPageWidget
                 ],
               );
             }
-            return Center(
+            return const Center(
               child: CupertinoActivityIndicator(),
             );
           },
           loadingBuilder: (_, __) {
-            return Center(
+            return const Center(
               child: CupertinoActivityIndicator(),
             );
           },

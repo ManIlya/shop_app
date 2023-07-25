@@ -28,7 +28,7 @@ class OrderPage extends StatelessWidget {
       child: Builder(builder: (context) {
         return SafeArea(
           child: CupertinoPageScaffold(
-            navigationBar: MyCupertinoNavigatorBar(
+            navigationBar: const MyCupertinoNavigatorBar(
               middle: Text('Оформление заказа'),
             ),
             child: SafeArea(
@@ -39,11 +39,12 @@ class OrderPage extends StatelessWidget {
                     child: BlocBuilder<OrderBloc, OrderState>(
                       builder: (context, state) {
                         List<Widget> widgets = [
-                          Text('Данные получателя'),
-                          MyCupertinoTextField(placeholder: "ФИО"),
-                          MyCupertinoTextField(placeholder: "+7 000 000 00 00"),
-                          MyCupertinoTextField(placeholder: "E-mail"),
-                          SizedBox(
+                          const Text('Данные получателя'),
+                          const MyCupertinoTextField(placeholder: "ФИО"),
+                          const MyCupertinoTextField(
+                              placeholder: "+7 000 000 00 00"),
+                          const MyCupertinoTextField(placeholder: "E-mail"),
+                          const SizedBox(
                             height: 16,
                           ),
                         ];
@@ -60,7 +61,8 @@ class OrderPage extends StatelessWidget {
                                           delivery: delivery));
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: CupertinoColors.systemGrey,
@@ -72,14 +74,15 @@ class OrderPage extends StatelessWidget {
                                     subtitle: Text(
                                         'Тип: ${delivery.type} Адресс: ${delivery.farmAddress}'),
                                     trailing: delivery.id == favoriteDelivery.id
-                                        ? Icon(CupertinoIcons.checkmark_alt)
+                                        ? const Icon(
+                                            CupertinoIcons.checkmark_alt)
                                         : null,
                                   ),
                                 ),
                               ),
                             ),
                           );
-                          widgets.add(SizedBox(height: 16));
+                          widgets.add(const SizedBox(height: 16));
                         }
                         if (state is PaymentsOrderState) {
                           widgets.add(const Text('Выбор способра доставки'));
@@ -87,14 +90,15 @@ class OrderPage extends StatelessWidget {
                           final Delivery favoriteDelivery = state.delivery;
                           widgets.addAll(
                             deliveries.map<Widget>(
-                                  (delivery) => GestureDetector(
+                              (delivery) => GestureDetector(
                                 onTap: () {
                                   context.read<OrderBloc>().add(
                                       SelectDeliveryOrderEvent(
                                           delivery: delivery));
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16),
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color: CupertinoColors.systemGrey,
@@ -106,21 +110,23 @@ class OrderPage extends StatelessWidget {
                                     subtitle: Text(
                                         'Тип: ${delivery.type} Адресс: ${delivery.farmAddress}'),
                                     trailing: delivery.id == favoriteDelivery.id
-                                        ? Icon(CupertinoIcons.checkmark_alt)
+                                        ? const Icon(
+                                            CupertinoIcons.checkmark_alt)
                                         : null,
                                   ),
                                 ),
                               ),
                             ),
                           );
-                          widgets.add(SizedBox(height: 16));
+                          widgets.add(const SizedBox(height: 16));
                           widgets.add(const Text('Способ оплаты'));
                           final List<Payment> payments = state.payments;
                           final Payment favoritePayment = state.payment;
                           widgets.addAll(
                             payments.map<Widget>(
                               (payment) => Container(
-                                padding: EdgeInsets.symmetric(vertical: 16),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: CupertinoColors.systemGrey,
@@ -131,22 +137,22 @@ class OrderPage extends StatelessWidget {
                                   leading: Image.network(payment.icon),
                                   subtitle: Text('Тип: ${payment.type}'),
                                   trailing: payment.id == favoritePayment.id
-                                      ? Icon(CupertinoIcons.checkmark_alt)
+                                      ? const Icon(CupertinoIcons.checkmark_alt)
                                       : null,
                                 ),
                               ),
                             ),
                           );
-                          widgets.add(SizedBox(height: 16));
+                          widgets.add(const SizedBox(height: 16));
                         }
                         widgets.addAll([
-                          CupertinoButton(
-                              child: Text('ВЫБРАТЬ АДРЕСС'), onPressed: null),
-                          Text('Способ оплаты'),
+                          const CupertinoButton(
+                              onPressed: null, child: Text('ВЫБРАТЬ АДРЕСС')),
+                          const Text('Способ оплаты'),
                         ]);
                         // В зависимости от текущего состояния, отображаем различные виджеты
                         return ListView.separated(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           itemBuilder: (context, index) {
                             return widgets[index];
                           },
@@ -164,8 +170,8 @@ class OrderPage extends StatelessWidget {
                     flex: 0,
                     child: Container(
                       width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 15),
                       decoration: BoxDecoration(
                         color:
                             CupertinoTheme.of(context).scaffoldBackgroundColor,
@@ -181,10 +187,11 @@ class OrderPage extends StatelessWidget {
                       ),
                       child: CupertinoButton.filled(
                         borderRadius: BorderRadius.zero,
-                        child: Text('Оформить заказ'),
+                        child: const Text('Оформить заказ'),
                         onPressed: () {
-                          context.read<OrderBloc>()
-                            ..add(LoadDeliveryOrderEvent());
+                          context
+                              .read<OrderBloc>()
+                              .add(const LoadDeliveryOrderEvent());
                         },
                       ),
                     ),

@@ -110,7 +110,8 @@ class CartPageWidget extends ElementaryWidget<ICartPageWidgetModel> {
                                 children: [
                                   Text('ИТОГО: ${cart.price} ₽'),
                                   cart.oldPrice != null
-                                      ? Text('Скидка:  ${double.parse(cart.price) - double.parse(cart.oldPrice!)} ₽')
+                                      ? Text(
+                                          'Скидка:  ${double.parse(cart.price) - double.parse(cart.oldPrice!)} ₽')
                                       : const SizedBox(),
                                 ],
                               ),

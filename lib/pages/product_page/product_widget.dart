@@ -71,7 +71,7 @@ class ProductWidget extends ElementaryWidget<IProductWM> {
             child: Hero(
               tag: newProduct,
               child: Image.network(
-                newProduct.picture ?? '',
+                newProduct.picture,
                 height: 273,
                 width: 273,
               ),

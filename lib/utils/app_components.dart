@@ -22,9 +22,7 @@ class AppComponents {
   late final AuthService authService = AuthService(dio);
   late final CartService _cartService = CartService(dio);
   late final CatalogService catalogService = CatalogService(dio);
-  late final CartUseCase cartUseCase = CartUseCase(
-      _cartService
-  );
+  late final CartUseCase cartUseCase = CartUseCase(_cartService);
 
   Future<void> init() async {
     dio.options
@@ -46,7 +44,6 @@ class AppComponents {
 
     dio.interceptors.add(PrettyDioLogger(
       requestBody: true,
-
     ));
 
     cartUseCase.init();

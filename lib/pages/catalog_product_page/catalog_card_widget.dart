@@ -2,9 +2,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/products_dto.dart';
 import 'package:shop/utils/icons/shop_app_icons_icons.dart';
-import 'package:shop/pages/catalog_product_page/catalog_card_widget_model.dart';
-
-
+import 'package:shop/pages/catalog_product_page/catalog_card_wm.dart';
 
 class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
   const CatalogCardWidget(super.wmFactory, {super.key});
@@ -24,7 +22,8 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
           if (product != null) {
             return Column(
               children: [
-                Expanded( // Добавлен Expanded
+                Expanded(
+                  // Добавлен Expanded
                   child: SizedBox(
                     width: _width,
                     height: _width,
@@ -35,7 +34,7 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                           Hero(
                             tag: product,
                             child: Image.network(
-                              product.picture ?? '',
+                              product.picture,
                               width: _width,
                               height: _width,
                               fit: BoxFit.cover,
@@ -50,12 +49,12 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                                 return CupertinoButton(
                                   child: data
                                       ? const Icon(
-                                    ShopAppIcons.heartFeel,
-                                    color: CupertinoColors.systemRed,
-                                  )
+                                          ShopAppIcons.heartFeel,
+                                          color: CupertinoColors.systemRed,
+                                        )
                                       : const Icon(
-                                    ShopAppIcons.heart,
-                                  ),
+                                          ShopAppIcons.heart,
+                                        ),
                                   onPressed: () {
                                     //todo добавление в избранное
                                     wm.toggleFavorite();
@@ -69,7 +68,8 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                     ),
                   ),
                 ),
-                Expanded( // Добавлен Expanded
+                Expanded(
+                  // Добавлен Expanded
                   child: Container(
                     width: _width,
                     height: _height - _width,
@@ -101,12 +101,12 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                             ),
                             subtitle: product.oldPrice != null
                                 ? Text(
-                              "${product.oldPrice!} ₽",
-                              style: const TextStyle(
-                                decoration: TextDecoration.lineThrough,
-                              ),
-                              textAlign: TextAlign.start,
-                            )
+                                    "${product.oldPrice!} ₽",
+                                    style: const TextStyle(
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                  )
                                 : null,
                             trailing: EntityStateNotifierBuilder(
                               listenableEntityState: wm.cartState,
@@ -130,7 +130,7 @@ class CatalogCardWidget extends ElementaryWidget<ICatalogCardWM> {
                                     ),
                                   );
                                 }
-                                return SizedBox();
+                                return const SizedBox();
                               },
                             ),
                           ),

@@ -62,8 +62,11 @@ class CartPageWidgetModel extends WidgetModel<CartPageWidget, CartPageModel>
   @override
   void openOrder() {
     final products = cartState.value?.data;
-    if(products!=null){
-      final productIds = products.products.map((e) => CartProductIds(productId: e.product.id.toString(), count: e.count)).toList();
+    if (products != null) {
+      final productIds = products.products
+          .map((e) => CartProductIds(
+              productId: e.product.id.toString(), count: e.count))
+          .toList();
       context.router.navigate(OrderRoute(products: productIds));
     }
   }

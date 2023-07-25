@@ -4,6 +4,7 @@ import 'package:shop/utils/app_components.dart';
 
 class CatalogScreenModel extends ElementaryModel {
   CatalogScreenModel({this.request});
+
   final client = AppComponents().catalogService;
 
   ProductsSerializerRequest? request;

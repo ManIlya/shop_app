@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$OrderState {
   List<CartProductIds> get products => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<CartProductIds> products) init,
@@ -32,6 +33,7 @@ mixin _$OrderState {
         payments,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(List<CartProductIds> products)? init,
@@ -55,6 +57,7 @@ mixin _$OrderState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitOrderState value) init,
@@ -62,6 +65,7 @@ mixin _$OrderState {
     required TResult Function(PaymentsOrderState value) payments,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitOrderState value)? init,
@@ -97,9 +101,9 @@ class _$OrderStateCopyWithImpl<$Res, $Val extends OrderState>
     implements $OrderStateCopyWith<$Res> {
   _$OrderStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
+// ignore: unused_field
   final $Val _value;
-  // ignore: unused_field
+// ignore: unused_field
   final $Res Function($Val) _then;
 
   @pragma('vm:prefer-inline')
@@ -159,7 +163,7 @@ class _$InitOrderState implements InitOrderState {
   @override
   List<CartProductIds> get products {
     if (_products is EqualUnmodifiableListView) return _products;
-    // ignore: implicit_dynamic_type
+// ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_products);
   }
 
@@ -360,7 +364,7 @@ class _$DeliveryOrderState implements DeliveryOrderState {
   @override
   List<CartProductIds> get products {
     if (_products is EqualUnmodifiableListView) return _products;
-    // ignore: implicit_dynamic_type
+// ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_products);
   }
 
@@ -368,7 +372,7 @@ class _$DeliveryOrderState implements DeliveryOrderState {
   @override
   List<Delivery> get deliveries {
     if (_deliveries is EqualUnmodifiableListView) return _deliveries;
-    // ignore: implicit_dynamic_type
+// ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_deliveries);
   }
 
@@ -608,7 +612,7 @@ class _$PaymentsOrderState implements PaymentsOrderState {
   @override
   List<CartProductIds> get products {
     if (_products is EqualUnmodifiableListView) return _products;
-    // ignore: implicit_dynamic_type
+// ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_products);
   }
 
@@ -616,7 +620,7 @@ class _$PaymentsOrderState implements PaymentsOrderState {
   @override
   List<Delivery> get deliveries {
     if (_deliveries is EqualUnmodifiableListView) return _deliveries;
-    // ignore: implicit_dynamic_type
+// ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_deliveries);
   }
 
@@ -626,7 +630,7 @@ class _$PaymentsOrderState implements PaymentsOrderState {
   @override
   List<Payment> get payments {
     if (_payments is EqualUnmodifiableListView) return _payments;
-    // ignore: implicit_dynamic_type
+// ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_payments);
   }
 
@@ -846,9 +850,9 @@ class _$OrderEventCopyWithImpl<$Res, $Val extends OrderEvent>
     implements $OrderEventCopyWith<$Res> {
   _$OrderEventCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
+// ignore: unused_field
   final $Val _value;
-  // ignore: unused_field
+// ignore: unused_field
   final $Res Function($Val) _then;
 }
 

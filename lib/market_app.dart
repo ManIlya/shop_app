@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:shop/data/dto/cart_cart.dart';
 import 'package:shop/utils/app_components.dart';
 import 'package:shop/utils/navigator/app_router.dart';
 
@@ -12,14 +11,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     AppComponents().cartUseCase.cartService.cartCalculate();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return
-      CupertinoApp.router(
+    return CupertinoApp.router(
       routerConfig: _appRouter.config(),
       title: 'Flutter Demo',
       theme: const CupertinoThemeData(
@@ -37,7 +34,7 @@ class MyApp extends StatelessWidget {
               fontFamily: "Montserrat",
               fontWeight: FontWeight.w400,
               fontSize: 16,
-              height: 21/16,
+              height: 21 / 16,
             ),
             actionTextStyle: TextStyle(
               fontWeight: FontWeight.w500,

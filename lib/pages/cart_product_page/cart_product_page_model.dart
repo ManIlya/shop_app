@@ -5,6 +5,6 @@ import 'package:shop/data/dto/request_calculated_cart.dart';
 /// Default Elementary model for CartProductPage module
 class CartProductPageModel extends ElementaryModel {
   CartProductPageModel({required this.product, super.errorHandler});
-  final CartProduct product;
 
+  final CartProduct product;
 }

@@ -6,15 +6,14 @@ import 'package:shop/data/remote/cart_service.dart';
 import 'package:shop/utils/life_cycle_component/lifecycle_component.dart';
 import 'package:shop/utils/life_cycle_component/value_sream_wrapper.dart';
 
-
 class CartUseCase implements LifecycleComponent {
   final CartService cartService;
   StreamSubscription? _subscription;
   final ValueStreamWrapper<CalculatedCart?> cart = ValueStreamWrapper();
 
   CartUseCase(
-      this.cartService,
-      );
+    this.cartService,
+  );
 
   @override
   void dispose() {
@@ -53,10 +52,10 @@ class CartUseCase implements LifecycleComponent {
     required CartUpdate request,
   }) async {
     List<CartProduct> newProducts = cart.value?.products
-        .map((e) => e.product.id == request.productId
-        ? e.copyWith(count: request.count ?? e.count + 1)
-        : e)
-        .toList() ??
+            .map((e) => e.product.id == request.productId
+                ? e.copyWith(count: request.count ?? e.count + 1)
+                : e)
+            .toList() ??
         [];
     cart.add(cart.value?.copyWith(products: newProducts));
 
@@ -66,12 +65,12 @@ class CartUseCase implements LifecycleComponent {
 
   void _deleteProduct(CartAdd cartUpdate) {
     final productsWithoutSingle = cart.value?.products.where((element) =>
-    (element.count > 1 && element.product.id == cartUpdate.productId));
+        (element.count > 1 && element.product.id == cartUpdate.productId));
     List<CartProduct> newProducts = productsWithoutSingle
-        ?.map((e) => e.product.id == cartUpdate.productId
-        ? e.copyWith(count: e.count - 1)
-        : e)
-        .toList() ??
+            ?.map((e) => e.product.id == cartUpdate.productId
+                ? e.copyWith(count: e.count - 1)
+                : e)
+            .toList() ??
         [];
     cart.add(cart.value?.copyWith(products: newProducts));
   }

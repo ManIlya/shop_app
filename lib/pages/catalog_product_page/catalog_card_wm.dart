@@ -9,7 +9,7 @@ import 'package:shop/data/repository/cart_use_case.dart';
 import 'package:shop/pages/catalog_product_page/catalog_card_model.dart';
 import 'package:shop/utils/app_components.dart';
 import 'package:shop/utils/navigator/app_router.dart';
-import 'package:shop/pages/catalog_product_page/catalog_screen_product_card.dart';
+import 'package:shop/pages/catalog_product_page/catalog_card_widget.dart';
 
 class CatalogCardWM extends WidgetModel<CatalogCardWidget, CatalogCardModel>
     implements ICatalogCardWM {

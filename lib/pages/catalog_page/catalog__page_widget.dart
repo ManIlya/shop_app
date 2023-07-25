@@ -2,10 +2,10 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/products_dto.dart';
 import 'package:shop/pages/catalog_product_page/catalog_card_model.dart';
-import 'package:shop/pages/catalog_product_page/catalog_card_widget_model.dart';
+import 'package:shop/pages/catalog_product_page/catalog_card_wm.dart';
 import 'package:shop/pages/catalog_page/catalog_page_wm.dart';
 
-import '../catalog_product_page/catalog_screen_product_card.dart';
+import '../catalog_product_page/catalog_card_widget.dart';
 
 class CatalogWidget extends ElementaryWidget<ICatalogScreenWM> {
   const CatalogWidget(super.wmFactory, {super.key});
@@ -49,7 +49,8 @@ class CatalogWidget extends ElementaryWidget<ICatalogScreenWM> {
                     maxCrossAxisExtent: height,
                   ),
                   itemBuilder: (context, index) {
-                    return CatalogCardWidget((context) => CatalogCardWM(CatalogCardModel(products[index])));
+                    return CatalogCardWidget((context) =>
+                        CatalogCardWM(CatalogCardModel(products[index])));
                   },
                   itemCount: products.length,
                 );
