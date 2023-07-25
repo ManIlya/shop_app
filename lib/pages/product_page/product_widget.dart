@@ -150,7 +150,7 @@ class ProductWidget extends ElementaryWidget<IProductWM> {
                           child: CupertinoButton.filled(
                             borderRadius: BorderRadius.zero,
                             padding: const EdgeInsets.symmetric(vertical: 17),
-                            onPressed: wm.tabMinus,
+                            onPressed: cartProduct.count <= 1 ? null : wm.tabMinus,
                             child: const Icon(CupertinoIcons.minus),
                           ),
                         ),
