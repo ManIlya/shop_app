@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/data/dto/products_dto.dart';
 import 'package:shop/utils/icons/shop_app_icons_icons.dart';
-import 'package:shop/pages/product_page/product_widget_model.dart';
+import 'package:shop/pages/product_page/product_wm.dart';
 import 'package:shop/widgets/my_cupertino_navigator_bar.dart';
 
 class ProductWidget extends ElementaryWidget<IProductWM> {

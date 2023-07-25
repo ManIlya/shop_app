@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shop/data/dto/products_dto.dart';
 import 'package:shop/pages/product_page/product_model.dart';
-import 'package:shop/pages/product_page/product_widget_model.dart';
+import 'package:shop/pages/product_page/product_wm.dart';
 import 'package:shop/pages/product_page/product_widget.dart';
 
 @RoutePage()
