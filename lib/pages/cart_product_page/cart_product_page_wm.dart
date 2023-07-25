@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +12,7 @@ import 'cart_product_page_model.dart';
 import 'cart_product_page_widget.dart';
 
 abstract class ICartProductPageWidgetModel extends IWidgetModel {
-  EntityStateNotifier<CartProduct> get productState;
-
-  EntityStateNotifier<int> get countState;
+  EntityStateNotifier<CartProduct?> get productState;
 
   void tabPlus();
 
@@ -27,7 +27,7 @@ abstract class ICartProductPageWidgetModel extends IWidgetModel {
 
 CartProductPageWidgetModel defaultCartProductPageWidgetModelFactory(
     BuildContext context, product) {
-  return CartProductPageWidgetModel(CartProductPageModel(product:  product));
+  return CartProductPageWidgetModel(CartProductPageModel(product: product));
 }
 
 // TODO: cover with documentation
@@ -35,24 +35,28 @@ CartProductPageWidgetModel defaultCartProductPageWidgetModelFactory(
 class CartProductPageWidgetModel
     extends WidgetModel<CartProductPageWidget, CartProductPageModel>
     implements ICartProductPageWidgetModel {
-
-
   CartProductPageWidgetModel(CartProductPageModel model) : super(model);
   @override
-  EntityStateNotifier<CartProduct> productState = EntityStateNotifier();
-
-  @override
-  EntityStateNotifier<int> countState = EntityStateNotifier();
+  EntityStateNotifier<CartProduct?> productState = EntityStateNotifier();
 
   CartUseCase cartUseCase = AppComponents().cartUseCase;
-
+  StreamSubscription? sub;
 
   @override
   void initWidgetModel() {
     super.initWidgetModel();
-    productState.content(model.product);
-    countState.content(model.product.count);
-
+    sub = cartUseCase.cart.stream.listen((event) {
+      productState.content(
+      event?.products
+          .where((element) => element.product.id == model.product.product.id)
+          .first);
+    });
+  }
+  @override
+  void dispose() {
+    sub?.cancel();
+    productState.dispose();
+    super.dispose();
   }
 
   @override
@@ -77,9 +81,8 @@ class CartProductPageWidgetModel
     if (product != null) {
       final count = product.count;
       if (count > 1) {
-        final count = product.count -1;
+        final count = product.count - 1;
         productState.content(product.copyWith(count: count));
-        countState.content(count);
         cartUseCase.addProductCount(
           request: CartUpdate(productId: product.product.id, count: count),
         );
@@ -91,9 +94,8 @@ class CartProductPageWidgetModel
   void tabPlus() {
     final product = productState.value?.data;
     if (product != null) {
-      final count = product.count +1;
+      final count = product.count + 1;
       productState.content(product.copyWith(count: count));
-      countState.content(count);
       cartUseCase.addProductCount(
         request: CartUpdate(productId: product.product.id, count: count),
       );
@@ -109,5 +111,4 @@ class CartProductPageWidgetModel
       );
     }
   }
-
 }

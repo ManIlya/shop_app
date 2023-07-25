@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
               ),
               fontFamily: "Montserrat",
               fontWeight: FontWeight.w400,
+              fontSize: 16,
+              height: 21/16,
             ),
             actionTextStyle: TextStyle(
               fontWeight: FontWeight.w500,

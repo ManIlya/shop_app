@@ -69,67 +69,60 @@ class CartProductPageWidget
                                 alignment: Alignment.topRight,
                                 padding: EdgeInsets.zero,
                                 child: const Icon(CupertinoIcons.multiply),
-                                onPressed: () =>wm.tabRemove(),
+                                onPressed: () => wm.tabRemove(),
                               ),
                             ],
                           ),
                         ),
-                        EntityStateNotifierBuilder(
-                          listenableEntityState: wm.countState,
-                          builder: (context, count) {
-                            if(count!=null){
-
-                              return CupertinoListTile(
-                                padding: EdgeInsets.zero,
-                                title: Text(
-                                  '${product.product.price} ₽',
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    height: 21 / 16,
-                                  ),
-                                ),
-                                subtitle: Text(
+                        CupertinoListTile(
+                          padding: EdgeInsets.zero,
+                          title: Text(
+                            '${product.product.price} ₽',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              height: 21 / 16,
+                            ),
+                          ),
+                          subtitle: product.product.oldPrice != null
+                              ? Text(
                                   "${product.product.oldPrice} ₽",
                                   style: const TextStyle(
                                     fontSize: 12,
                                     height: 16 / 12,
                                     decoration: TextDecoration.lineThrough,
                                   ),
-                                ),
-                                trailing: Row(
-                                  children: [
-                                    CupertinoButton.filled(
-                                      padding: EdgeInsets.zero,
-                                      borderRadius: BorderRadius.zero,
-                                      //color: CupertinoColors.inactiveGray,
-                                      child: const Icon(CupertinoIcons.minus),
+                                )
+                              : null,
+                          trailing: Row(
+                            children: [
+                              CupertinoButton.filled(
+                                padding: EdgeInsets.zero,
+                                borderRadius: BorderRadius.zero,
+                                //color: CupertinoColors.inactiveGray,
+                                child: const Icon(CupertinoIcons.minus),
 
-                                      onPressed: count<=1?null:wm.tabMinus,
+                                onPressed: product.count <= 1 ? null : wm.tabMinus,
+                              ),
+                              SizedBox(
+                                  width: 44,
+                                  height: 44,
+                                  child: Center(
+                                    child: Text(
+                                      '${product.count}',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        height: 17 / 14,
+                                      ),
                                     ),
-                                    SizedBox(
-                                        width: 44,
-                                        height: 44,
-                                        child: Center(
-                                          child: Text(
-                                            '$count',
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              height: 17 / 14,
-                                            ),
-                                          ),
-                                        )),
-                                    CupertinoButton.filled(
-                                      padding: EdgeInsets.zero,
-                                      borderRadius: BorderRadius.zero,
-                                      onPressed: wm.tabPlus,
-                                      child: const Icon(CupertinoIcons.plus),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            return const Center(child: CupertinoActivityIndicator(),);
-                          }
+                                  )),
+                              CupertinoButton.filled(
+                                padding: EdgeInsets.zero,
+                                borderRadius: BorderRadius.zero,
+                                onPressed: wm.tabPlus,
+                                child: const Icon(CupertinoIcons.plus),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -138,7 +131,9 @@ class CartProductPageWidget
                 ],
               );
             }
-            return Center(child: CupertinoActivityIndicator(),);
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
           },
           loadingBuilder: (_, __) {
             return Center(

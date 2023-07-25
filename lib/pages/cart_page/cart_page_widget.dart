@@ -1,7 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shop/pages/cart_page/cart_widget.dart';
 import 'package:shop/pages/cart_product_page/cart_product_page_widget.dart';
 import 'package:shop/pages/cart_product_page/cart_product_page_wm.dart';
 import 'package:shop/utils/icons/shop_app_icons_icons.dart';
@@ -109,14 +108,9 @@ class CartPageWidget extends ElementaryWidget<ICartPageWidgetModel> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('ИТОГО: ${cart.price} Р'),
+                                  Text('ИТОГО: ${cart.price} ₽'),
                                   cart.oldPrice != null
-                                      ? Text(
-                                          'Скидка: ${cart.oldPrice!} Р',
-                                          style: const TextStyle(
-                                              decoration:
-                                                  TextDecoration.lineThrough),
-                                        )
+                                      ? Text('Скидка:  ${double.parse(cart.price) - double.parse(cart.oldPrice!)} ₽')
                                       : const SizedBox(),
                                 ],
                               ),

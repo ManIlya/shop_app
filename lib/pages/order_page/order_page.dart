@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop/data/dto/deliveries.dart';
 import 'package:shop/data/dto/request_calculated_cart.dart';
 import 'package:shop/pages/order_page/order_bloc.dart';
 import 'package:shop/utils/app_components.dart';
 import 'package:shop/widgets/my_cupertino_navigator_bar.dart';
+import 'package:shop/widgets/my_cupertino_text_field.dart';
 
 @RoutePage()
 class OrderPage extends StatelessWidget {
@@ -23,71 +25,150 @@ class OrderPage extends StatelessWidget {
         cartService: cartService,
         catalogService: catalogService,
       ),
-      child: Builder(
-        builder: (context) {
-          return SafeArea(
-            child: CupertinoPageScaffold(
-              navigationBar: MyCupertinoNavigatorBar(
-                middle: Text('Оформление заказа'),
-              ),
+      child: Builder(builder: (context) {
+        return SafeArea(
+          child: CupertinoPageScaffold(
+            navigationBar: MyCupertinoNavigatorBar(
+              middle: Text('Оформление заказа'),
+            ),
+            child: SafeArea(
               child: Column(
                 children: [
                   Flexible(
                     flex: 1,
                     child: BlocBuilder<OrderBloc, OrderState>(
                       builder: (context, state) {
-                        // В зависимости от текущего состояния, отображаем различные виджеты
-                        return ListView(
-                          children: [
-                            Text('Данные получателя'),
-                            CupertinoTextField(),
-                            CupertinoTextField(),
-                            Text('Выбор адреса доставки'),
-                            CupertinoButton(child: Text('ВЫБРАТЬ АДРЕСС'), onPressed: null),
-                            Text('Способ оплаты'),
-                            
-                          ],
-                        );
-                        if (state is InitOrderState) {
-                          // Отображение начального состояния
-                          return Center(
-                            child: Text('Initial State'),
-                          );
-                        } else if (state is DeliveryOrderState) {
-                          // Отображение состояния с информацией о доставке
-                          final deliveries = state.deliveries;
-                          return Center(
-                            child: ListView.builder(
-                              itemCount: deliveries.length,
-                              itemBuilder: (context, index){
-                                final delivery = deliveries[index];
-                                return CupertinoListTile(
-                                  title: Text(delivery.title),
-                                  leading: Image.network(delivery.icon),
-                                  subtitle: Text('Тип: ${delivery.type} Адресс: ${delivery.farmAddress}'),
-                                  
-                                );
-                            },
+                        List<Widget> widgets = [
+                          Text('Данные получателя'),
+                          MyCupertinoTextField(placeholder: "ФИО"),
+                          MyCupertinoTextField(placeholder: "+7 000 000 00 00"),
+                          MyCupertinoTextField(placeholder: "E-mail"),
+                          SizedBox(
+                            height: 16,
+                          ),
+                        ];
+                        if (state is DeliveryOrderState) {
+                          widgets.add(const Text('Выбор способра доставки'));
+                          final List<Delivery> deliveries = state.deliveries;
+                          final Delivery favoriteDelivery = state.delivery;
+                          widgets.addAll(
+                            deliveries.map<Widget>(
+                              (delivery) => GestureDetector(
+                                onTap: () {
+                                  context.read<OrderBloc>().add(
+                                      SelectDeliveryOrderEvent(
+                                          delivery: delivery));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: CupertinoColors.systemGrey,
+                                    ),
+                                  ),
+                                  child: CupertinoListTile(
+                                    title: Text(delivery.title),
+                                    leading: Image.network(delivery.icon),
+                                    subtitle: Text(
+                                        'Тип: ${delivery.type} Адресс: ${delivery.farmAddress}'),
+                                    trailing: delivery.id == favoriteDelivery.id
+                                        ? Icon(CupertinoIcons.checkmark_alt)
+                                        : null,
+                                  ),
+                                ),
+                              ),
                             ),
                           );
-                        } else if (state is PaymentsOrderState) {
-                          // Отображение состояния с информацией о платежах
-                          return Center(
-                            child: Text('Payments State'),
-                          );
+                          widgets.add(SizedBox(height: 16));
                         }
-                        return Container(
-                          child: Text('Пусто'),
-                        ); // Вернуть пустой контейнер по умолчанию
+                        if (state is PaymentsOrderState) {
+                          widgets.add(const Text('Выбор способра доставки'));
+                          final List<Delivery> deliveries = state.deliveries;
+                          final Delivery favoriteDelivery = state.delivery;
+                          widgets.addAll(
+                            deliveries.map<Widget>(
+                                  (delivery) => GestureDetector(
+                                onTap: () {
+                                  context.read<OrderBloc>().add(
+                                      SelectDeliveryOrderEvent(
+                                          delivery: delivery));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 16),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: CupertinoColors.systemGrey,
+                                    ),
+                                  ),
+                                  child: CupertinoListTile(
+                                    title: Text(delivery.title),
+                                    leading: Image.network(delivery.icon),
+                                    subtitle: Text(
+                                        'Тип: ${delivery.type} Адресс: ${delivery.farmAddress}'),
+                                    trailing: delivery.id == favoriteDelivery.id
+                                        ? Icon(CupertinoIcons.checkmark_alt)
+                                        : null,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                          widgets.add(SizedBox(height: 16));
+                          widgets.add(const Text('Способ оплаты'));
+                          final List<Payment> payments = state.payments;
+                          final Payment favoritePayment = state.payment;
+                          widgets.addAll(
+                            payments.map<Widget>(
+                              (payment) => Container(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: CupertinoColors.systemGrey,
+                                  ),
+                                ),
+                                child: CupertinoListTile(
+                                  title: Text(payment.title),
+                                  leading: Image.network(payment.icon),
+                                  subtitle: Text('Тип: ${payment.type}'),
+                                  trailing: payment.id == favoritePayment.id
+                                      ? Icon(CupertinoIcons.checkmark_alt)
+                                      : null,
+                                ),
+                              ),
+                            ),
+                          );
+                          widgets.add(SizedBox(height: 16));
+                        }
+                        widgets.addAll([
+                          CupertinoButton(
+                              child: Text('ВЫБРАТЬ АДРЕСС'), onPressed: null),
+                          Text('Способ оплаты'),
+                        ]);
+                        // В зависимости от текущего состояния, отображаем различные виджеты
+                        return ListView.separated(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          itemBuilder: (context, index) {
+                            return widgets[index];
+                          },
+                          separatorBuilder: (context, _) {
+                            return const SizedBox(
+                              height: 16,
+                            );
+                          },
+                          itemCount: widgets.length,
+                        );
                       },
                     ),
                   ),
                   Flexible(
                     flex: 0,
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 15),
+                      width: double.infinity,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 15),
                       decoration: BoxDecoration(
-                        color: CupertinoTheme.of(context).scaffoldBackgroundColor,
+                        color:
+                            CupertinoTheme.of(context).scaffoldBackgroundColor,
                         // Цвет
                         boxShadow: [
                           BoxShadow(
@@ -102,7 +183,8 @@ class OrderPage extends StatelessWidget {
                         borderRadius: BorderRadius.zero,
                         child: Text('Оформить заказ'),
                         onPressed: () {
-                          context.read<OrderBloc>().add(LoadDeliveryOrderEvent());
+                          context.read<OrderBloc>()
+                            ..add(LoadDeliveryOrderEvent());
                         },
                       ),
                     ),
@@ -110,9 +192,9 @@ class OrderPage extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        }
-      ),
+          ),
+        );
+      }),
     );
   }
 }

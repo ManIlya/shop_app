@@ -60,21 +60,24 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     required this.cartService,
     required this.catalogService,
   }) : super(
-          OrderState.init(
-            products: products,
-          ),
-        ) {
+    OrderState.init(
+      products: products,
+    ),
+  ) {
     on<OrderEvent>(
-      (event, emit) async {
+          (event, emit) async {
         switch (event) {
           case LoadDeliveryOrderEvent():
             await _loadDeliveries(event, emit);
             break;
           case SelectDeliveryOrderEvent():
+            _selectDelivery(event, emit);
             break;
           case SelectPaymentOrderEvent():
+            _selectPayment(event, emit);
             break;
           case OrderCreateOrderEvent():
+            _createOrder(event, emit);
             break;
         }
       },
@@ -83,9 +86,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   Future<void> _loadDeliveries(
-    LoadDeliveryOrderEvent event,
-    Emitter<OrderState> emit,
-  ) async {
+      LoadDeliveryOrderEvent event,
+      Emitter<OrderState> emit,
+      ) async {
     final deliveries = await catalogService.getDeliveries(
       request: DeliveriesRequest(products: state.products),
     );
@@ -97,19 +100,49 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         deliveryDate: DateTime.now(),
       ),
     );
+  }
+
+  Future<void> _selectDelivery(
+      SelectDeliveryOrderEvent event,
+      Emitter<OrderState> emit,
+      ) async {
     final payments = await catalogService.getPayments(
       request: PaymentsRequest(
         products: state.products,
-        deliveryId: (state as DeliveryOrderState).delivery.id,
+        deliveryId: event.delivery.id,
       ),
     );
     emit(
-      DeliveryOrderState(
+      PaymentsOrderState(
         products: state.products,
-        deliveries: deliveries,
-        delivery: deliveries.first,
-        deliveryDate: DateTime.now(),
+        deliveries: (state as DeliveryOrderState).deliveries,
+        delivery: event.delivery,
+        payments: payments,
+        payment: payments.first,
       ),
     );
+  }
+
+  Future<void> _selectPayment(
+      SelectPaymentOrderEvent event,
+      Emitter<OrderState> emit,
+      ) async {
+    emit(
+      PaymentsOrderState(
+        products: state.products,
+        deliveries: (state as DeliveryOrderState).deliveries,
+        delivery: (state as DeliveryOrderState).delivery,
+        payments: (state as PaymentsOrderState).payments,
+        payment: event.payment,
+      ),
+    );
+  }
+
+  Future<void> _createOrder(
+      OrderCreateOrderEvent event,
+      Emitter<OrderState> emit,
+      ) async {
+
+    // Implement your logic to create the order here
   }
 }

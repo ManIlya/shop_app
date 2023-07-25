@@ -114,68 +114,71 @@ class ProductWidget extends ElementaryWidget<IProductWM> {
               ],
             ),
           ), //цена
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: CupertinoButton.filled(
-              borderRadius: BorderRadius.zero,
-              padding: const EdgeInsets.symmetric(vertical: 17),
-              onPressed: () {
-                //todo добавление в корзину
-              },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(ShopAppIcons.cart), // Ваша иконка
-                  SizedBox(width: 8), // Расстояние между иконкой и текстом
-                  Text('В КОРЗИНУ'), // Текст кнопки
-                ],
-              ),
-            ),
-          ), //добавить в корзину
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              color: wm.cupertinoTheme.barBackgroundColor,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    flex: 735,
+          EntityStateNotifierBuilder(
+              listenableEntityState: wm.cartState,
+              builder: (context, cartProduct) {
+                if (cartProduct == null) {
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
                     child: CupertinoButton.filled(
                       borderRadius: BorderRadius.zero,
                       padding: const EdgeInsets.symmetric(vertical: 17),
-                      onPressed: () {
-                        //todo уменьшить количество
-                      },
-                      child: const Icon(CupertinoIcons.minus),
-                    ),
-                  ),
-                  const Expanded(
-                    flex: 2130,
-                    child: Center(
-                      child: Column(
+                      onPressed: wm.tabBasket,
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('В КОРЗИНЕ'),
-                          Text('23'),
+                          Icon(ShopAppIcons.cart),
+                          // Ваша иконка
+                          SizedBox(width: 8),
+                          // Расстояние между иконкой и текстом
+                          Text('В КОРЗИНУ'),
+                          // Текст кнопки
                         ],
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 735,
-                    child: CupertinoButton.filled(
-                      borderRadius: BorderRadius.zero,
-                      padding: const EdgeInsets.symmetric(vertical: 17),
-                      onPressed: () {
-                        //увеличить количество
-                      },
-                      child: const Icon(CupertinoIcons.add),
+                  ); //добавить в корзину
+                }
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    color: wm.cupertinoTheme.barBackgroundColor,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          flex: 735,
+                          child: CupertinoButton.filled(
+                            borderRadius: BorderRadius.zero,
+                            padding: const EdgeInsets.symmetric(vertical: 17),
+                            onPressed: wm.tabMinus,
+                            child: const Icon(CupertinoIcons.minus),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2130,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                const Text('В КОРЗИНЕ'),
+                                Text('${cartProduct.count}'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 735,
+                          child: CupertinoButton.filled(
+                            borderRadius: BorderRadius.zero,
+                            padding: const EdgeInsets.symmetric(vertical: 17),
+                            onPressed: wm.tabPlus,
+                            child: const Icon(CupertinoIcons.add),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ), //кнопка зобавленного в корзину
+                ); //кнопка зобавленного в корзину
+              }),
           const SizedBox(
             height: 32,
           ),
