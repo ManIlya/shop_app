@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-enum TestFile{
-  newTest
-=======
-class TstFile{
-  
->>>>>>> new_branch2
-}
+enum TestFileEnum { newTest }
+
+class TstFile {}
